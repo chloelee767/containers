@@ -1,5 +1,5 @@
 FROM ncbi/edirect as edirect
-FROM ubuntu:18.04 as blastbuild
+FROM ubuntu:16.04 as blastbuild
 ARG version
 ARG num_procs=8
 LABEL Description="NCBI BLAST" Vendor="NCBI/NLM/NIH" Version=${version} Maintainer=camacho@ncbi.nlm.nih.gov
@@ -44,7 +44,7 @@ COPY --from=blastbuild /root/ncbi-blast-${version}+-src/c++/ReleaseMT/lib /blast
 
 COPY --from=edirect /usr/local/ncbi/edirect /root/edirect
 
-RUN mkdir -p /blast/blastdb /blast/blastdb_custom
+RUN mkdir -p /blast/blastdb /blast/blastdb_custom /blast/fasta /blast/queries /blast/results
 RUN sed -i '$ a BLASTDB=/blast/blastdb:/blast/blastdb_custom' /etc/environment
 ENV BLASTDB /blast/blastdb:/blast/blastdb_custom
 ENV BLAST_DOCKER true
