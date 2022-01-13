@@ -5,7 +5,7 @@ FROM ubuntu:16.04
 ARG VER
 
 # ---------------------------------------------------------------------------- #
-# ----------------------------- INSTALL PYTHON3 ------------------------------ #
+# ------------------------ INSTALL PYTHON3, MUMMER --------------------------- #
 # ---------------------------------------------------------------------------- #
 RUN apt-get update -y -m && \
     # adds add-apt-repository command
@@ -22,7 +22,8 @@ RUN apt-get update -y -m && \
                                                python3-setuptools \
                                                python3-wheel \
     # Fix ImportError: cannot import name 'sysconfig' from 'distutils' (/usr/lib/python3.8/distutils/__init__.py)
-                                               python3.8-distutils && \
+                                               python3.8-distutils \
+                                               mummer=3.23~dfsg-3 && \
 
     # remove add-apt-repository
     DEBIAN_FRONTEND=noninteractive apt-get remove -y software-properties-common && \
